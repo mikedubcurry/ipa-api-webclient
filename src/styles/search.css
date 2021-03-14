@@ -1,0 +1,33 @@
+.search {
+    background-color: #ccc;
+    width: 100vw;
+    height: 33vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+}
+
+.search input {
+    padding: 1rem;
+    margin: 1.5rem 0; 
+    width: 50%;
+    text-align: center;
+    background-color: #ffb223;
+    border-radius: 1rem;
+    border: 1px solid #aaa;
+}
+
+.search button {
+    padding: .5rem 1rem;
+    border: 1px solid #aaa;
+    border-radius: 1rem;
+    background-color: #ddd;
+}
+
+::placeholder {
+    color:#25243b;
+    font-size: 1.5rem;
+}
+
