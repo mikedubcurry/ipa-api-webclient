@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 import "../styles/search.css";
 
 export const Search = () => {
+    const history = useHistory();
     const [query, querySet] = useState("");
     const handleSubmit = () => {
         console.log("submitted with " + query);
+        history.push("/search/" + query);
         querySet("");
     };
     return (
