@@ -1,10 +1,6 @@
-export interface ResultsProps<T, U> {
-    results: Result<T, U>[];
+export interface ResultsProps {
+    results: BeerOrBrewer[];
 }
-
-export type Result<T, U> = {
-    item: T | U;
-};
 
 export type Beer = {
     name: string;
@@ -21,6 +17,8 @@ export type Brewer = {
     _id: string;
     beers?: [Beer];
 };
+
+export type BeerOrBrewer = Beer | Brewer;
 
 export interface BeerCardProps {
     item: Beer;
