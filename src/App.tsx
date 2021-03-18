@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import { Home } from "./pages/Home";
-import { Results } from "./pages/Results";
+import { SearchResults } from "./pages/SearchResults";
 import "./styles/index.css";
 import { BeerOrBrewer } from "./types";
 
@@ -50,8 +50,10 @@ function App() {
                 <Home />
             </Route>
             <Route path="/search/:query">
-                <Results results={searchResults} />
+                <SearchResults results={searchResults} />
             </Route>
+            <Route path="/brew/:id">beer results</Route>
+            <Route path="/brewer/:id">brewer results</Route>
         </Router>
     );
 }
