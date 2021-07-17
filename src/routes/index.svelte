@@ -1,21 +1,7 @@
-<script type="module" lang="ts">
-	export async function load({ page, fetch, session, context }) {
-		const url = `/`;
-		const res = await fetch(url);
 
-		if (res.ok) {
-			return {
-				props: {
-					message: await res.json()
-				}
-			};
-		}
 
-		return {
-			status: res.status,
-			error: new Error(`Could not load ${url}`)
-		};
-	}
+<script lang="ts">
+
 </script>
 
 <h1>IPA-API</h1>
