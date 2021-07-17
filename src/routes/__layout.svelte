@@ -9,22 +9,24 @@
 </script>
 
 <script lang="ts">
-	// import Login from '$lib/auth/Login.svelte';
-	// import Signup from '$lib/auth/Signup.svelte';
-	import { user } from '$lib/stores/user';
-	// let visible = false;
-	export let session = undefined;
-	$: console.log(session);
+import type { Locals, UnAuthSession, UserSession } from "$lib/types";
+
+
+	export let session: UserSession | UnAuthSession = undefined;
 </script>
 
-{#if !session.authenticated}
-	<a href="/login">Login/Signup</a>
-	<!-- <Login  {visible} /> -->
-	<!-- <Signup {visible} /> -->
-{:else}
-  <p>Logged in as {session.username}</p>
-	<a href="/logout">Log out</a>
-{/if}
+<header>
+	{#if !session.authenticated}
+		<div class="auth">
+			<a href="/login">Login/Signup</a>
+		</div>
+	{:else}
+		<p class="user">Logged in as {session.username}</p>
+		<div class="auth">
+			<a href="/logout">Log out</a>
+		</div>
+	{/if}
+</header>
 <main>
 	<slot />
 </main>
@@ -33,5 +35,46 @@
 	main {
 		display: flex;
 		flex-direction: column;
+		margin: 0 auto;
+		font-size: 2rem;
+		padding: 0 1rem;
+	}
+	header {
+		height: 10vh;
+		display: grid;
+		grid-template-columns: 4fr 1fr;
+		width: 100%;
+		font-size: 2rem;
+		padding: 0 1rem;
+	}
+	.auth,
+	.user {
+		display: flex;
+		align-items: center;
+		width: 100%;
+	}
+	.auth {
+		grid-column: 2;
+		justify-content: flex-end;
+	}
+	.user {
+		justify-content: flex-start;
+	}
+
+	@media (min-width: 500px) {
+		main {
+			max-width: 95vw;
+		}
+	}
+	@media (min-width: 750px) {
+		main {
+			max-width: 650px;
+		}
+	}
+	@media (min-width: 1024px) {
+		main {
+			/* might need to be changed */
+			max-width: 1000px;
+		}
 	}
 </style>

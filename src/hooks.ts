@@ -2,7 +2,7 @@ import cookie from 'cookie';
 import { config } from 'dotenv';
 import { v4 as uuid } from '@lukeed/uuid';
 import type { GetSession, Handle } from '@sveltejs/kit';
-import type { Locals } from '$lib/types';
+import type { Locals, UnAuthSession, UserSession } from '$lib/types';
 import { createClient } from '@supabase/supabase-js';
 config();
 
@@ -31,7 +31,7 @@ export const handle: Handle<Locals> = async ({ request, resolve }) => {
 	return response;
 };
 
-export const getSession: GetSession<Locals> = async ({ locals }) => {
+export const getSession: GetSession<Locals> = async ({ locals }): Promise<UserSession | UnAuthSession> => {
 	const userid = locals.userid;
 	if (userid) {
 		return {
