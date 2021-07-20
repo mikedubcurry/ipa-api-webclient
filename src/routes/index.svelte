@@ -1,6 +1,5 @@
 <script context="module">
 	export const load = async ({ session }) => {
-		console.log(session);
 		return {
 			props: {
 				session
@@ -11,7 +10,7 @@
 
 <script lang="ts">
 	import type { IPA, Locals, UnAuthSession, UserSession } from '$lib/types';
-	import type { Load } from '@sveltejs/kit';
+	import { slugify } from '$lib/slugify';
 
 	import { onMount } from 'svelte';
 
@@ -29,7 +28,6 @@
 			let resLiked = await fetch('/ipas/liked');
 			if (resLiked.ok) {
 				liked = await resLiked.json();
-				console.log(liked);
 			}
 		}
 	});
@@ -50,7 +48,7 @@
 	<h2>Your Favorties</h2>
 	{#each liked as ipa (ipa.id)}
 		<article>
-			<h3>{ipa.name}</h3>
+			<h3><a href={`/ipas/${slugify(ipa.name)}`}>{ipa.name}</a></h3>
 			<p>{ipa.brewer.name} {ipa.brewer.location}</p>
 			{#if ipa.isAlcoholic}
 				<p>{ipa.alcohol} % ABV</p>
@@ -63,7 +61,7 @@
 <h2>IPAs</h2>
 {#each ipas as ipa (ipa.id)}
 	<article>
-		<h3>{ipa.name}</h3>
+		<h3><a href={`/ipas/${slugify(ipa.name)}`}>{ipa.name}</a></h3>
 		<p>{ipa.brewer.name} {ipa.brewer.location}</p>
 		{#if ipa.isAlcoholic}
 			<p>{ipa.alcohol} % ABV</p>

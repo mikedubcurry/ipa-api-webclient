@@ -17,7 +17,6 @@ export const handle: Handle<Locals> = async ({ request, resolve }) => {
 			.select('username')
 			.eq('id', cookies.userid);
 		// .eq('id', cookies.userid);
-		console.log('username', users, error);
 
 		request.locals.username = users[0].username;
 	}
