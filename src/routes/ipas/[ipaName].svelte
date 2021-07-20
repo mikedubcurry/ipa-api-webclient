@@ -4,12 +4,15 @@
 	export const load: Load = async ({ fetch, session, page }) => {
 		console.log(page);
 		const res = await fetch(page.path + '.json');
-		const data = await res.json();
-		return {
-			props: {
-				ipa: data.ipa
-			}
-		};
+		if (res.ok) {
+			const data = await res.json();
+
+			return {
+				props: {
+					ipa: data.ipa
+				}
+			};
+		}
 	};
 </script>
 

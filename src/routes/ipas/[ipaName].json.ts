@@ -6,13 +6,16 @@ config();
 const supabase = createClient(process.env['SUPABASE_URL'], process.env['SUPABASE_ANON_KEY']);
 
 export const get: RequestHandler<Locals, {}, {}> = async ({ path, params }) => {
-	console.log(params);
-
 	const {
-		data: [{ item_id }],
-		error
+		data: [data],
+		error: slugErr
 	} = await supabase.from('ipaSlugMap').select('item_id').eq('slug', params.ipaName);
-	console.log(item_id);
+
+	if (!data) {
+		return {
+			status: 404
+		};
+	}
 	const {
 		data: [ipa],
 		error: ipaErr
@@ -20,13 +23,17 @@ export const get: RequestHandler<Locals, {}, {}> = async ({ path, params }) => {
 		.from('ipas')
 		.select(
 			`*,
-  brewer (
-    id, name, location
-  )`
+      brewer (
+        id, name, location
+      )`
 		)
-		.eq('id', item_id);
+		.eq('id', data.item_id);
 
-	console.log(ipa);
+	if (!ipa) {
+		return {
+			status: 404
+		};
+	}
 
 	return { status: 200, body: { ipa } };
 };
